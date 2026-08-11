@@ -1,0 +1,92 @@
+{
+  "name": "Slack n8n notification",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "dataSourceId": {
+          "__rl": true,
+          "value": "3b867dc8-7d3c-8088-87dd-000b60a1b0b9",
+          "mode": "list",
+          "cachedResultName": "Internship Tasks",
+          "cachedResultUrl": "https://app.notion.com/p/3b867dc87d3c808e8c72de66772b13ed"
+        }
+      },
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -288,
+        -48
+      ],
+      "id": "ea31f91e-d299-4d57-91c8-5a94688a06ec",
+      "name": "Notion Trigger",
+      "credentials": {
+        "notionApi": {
+          "id": "DtWFuoDQtBUAWklx",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BP9CVQ3HP",
+          "mode": "id"
+        },
+        "text": "=🔔 New Internship Task\n\n📌 Task: {{$json[\"Task Name\"]}}\n🔥 Priority: {{$json[\"Priority\"]}}\n📅 Due Date: {{$json[\"Due Date\"][\"start\"]}}\n📊 Status: {{$json[\"Status\"]}}\n👤 Assignee: {{$json[\"Assignee\"][0]}}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        -64,
+        -48
+      ],
+      "id": "6ff38a4f-c916-483a-82b0-713499fe4fa4",
+      "name": "Send a message",
+      "webhookId": "5e493264-7bac-4f09-a370-d32d3ebb4753",
+      "credentials": {
+        "slackApi": {
+          "id": "IYA8xcFqtdd2nUWm",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Notion Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "6fdc3659-6f88-4167-b539-b8912479c2a1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "d4LwSCCiTWXbptGo",
+  "tags": []
+}

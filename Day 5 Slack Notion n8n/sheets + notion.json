@@ -1,0 +1,101 @@
+{
+  "name": "sheets + notion",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1plxAfOfMJ_xaHHfXot3Uvu0CEnJMB-pIyGqUqQXOn7k",
+          "mode": "list",
+          "cachedResultName": "notion responses",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1plxAfOfMJ_xaHHfXot3Uvu0CEnJMB-pIyGqUqQXOn7k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1plxAfOfMJ_xaHHfXot3Uvu0CEnJMB-pIyGqUqQXOn7k/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e51f9fd4-f506-4164-ba1d-ce05184d9db5",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "vJykdSB8yjsKVf5u",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "dataSourceId": {
+          "__rl": true,
+          "value": "3b967dc8-7d3c-807e-8c7c-000bb9eb7106",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://app.notion.com/p/3b967dc87d3c8054a211eb57bbaf13ad"
+        },
+        "title": "={{ $json.Name }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "279b6390-fe2c-48be-8294-5a9ac8f5ed32",
+      "name": "Create a database page",
+      "credentials": {
+        "notionApi": {
+          "id": "DtWFuoDQtBUAWklx",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Create a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f5d5975c-8b6a-49a6-bd2b-c093a32680d1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "cYlkUQUrk1nBkaBq",
+  "tags": []
+}

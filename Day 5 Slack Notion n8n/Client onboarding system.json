@@ -1,0 +1,124 @@
+{
+  "name": "Client onboarding system",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "channel",
+        "channelId": "={{ $json[\"Client Name\"].toLowerCase().replace(/\\s+/g, \"-\") }}"
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "b7359d6b-d124-41d2-9aa6-e676b7063d5b",
+      "name": "Channel Creation",
+      "webhookId": "288ebe75-de6e-4494-b630-5b1035387895",
+      "credentials": {
+        "slackApi": {
+          "id": "IYA8xcFqtdd2nUWm",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "dataSourceId": {
+          "__rl": true,
+          "value": "3b967dc8-7d3c-807e-8c7c-000bb9eb7106",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://app.notion.com/p/3b967dc87d3c8054a211eb57bbaf13ad"
+        }
+      },
+      "type": "n8n-nodes-base.notionTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4b381930-972a-4105-a129-6bd48dc42b99",
+      "name": "New Client",
+      "credentials": {
+        "notionApi": {
+          "id": "DtWFuoDQtBUAWklx",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json[\"id\"] }}",
+          "mode": "id"
+        },
+        "text": "=🎉 New Client Onboarded!\n\n📌 Client: {{ $('New Client').item.json[\"Client Name\"] }}\n🏢 Company: {{ $('New Client').item.json[\"Company\"] }}\n📧 Email: {{ $('New Client').item.json[\"Email\"] }}\n📅 Onboarding Date: {{ $('New Client').item.json[\"On-boarding Date\"].start }}\n\nA dedicated Slack channel has been created for this client.\n\nPlease use this channel for all client-related communication and updates.\n\n🤖 Automated with n8n",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        576,
+        -16
+      ],
+      "id": "7ef69140-a1e9-4f10-9162-4d242c7f36e6",
+      "name": "Notify Team",
+      "webhookId": "c9322822-60b1-44e7-8605-7ab6ed5fa837",
+      "credentials": {
+        "slackApi": {
+          "id": "IYA8xcFqtdd2nUWm",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "New Client": {
+      "main": [
+        [
+          {
+            "node": "Channel Creation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Creation": {
+      "main": [
+        [
+          {
+            "node": "Notify Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "75d0e14c-4eef-41e3-b848-3db5ae660dc3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "CZQdRzInuRL4EjdT",
+  "tags": []
+}
