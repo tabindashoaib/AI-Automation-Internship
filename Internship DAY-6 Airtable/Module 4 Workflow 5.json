@@ -1,0 +1,201 @@
+{
+  "name": "Module 4 Workflow 5",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "https://airtable.com/appx326oeQJI79dIs/tbluWhY24c4uwONvi/viwy7Xft3h5Zjs323?blocks=hide",
+          "mode": "url"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "https://airtable.com/appx326oeQJI79dIs/tbluWhY24c4uwONvi/viwy7Xft3h5Zjs323?blocks=hide",
+          "mode": "url"
+        },
+        "triggerField": "Task Count",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8c892946-bffa-473b-b371-909530fa910b",
+      "name": "Airtable Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbluWhY24c4uwONvi",
+          "mode": "list",
+          "cachedResultName": "Interns",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tbluWhY24c4uwONvi"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "Intern Name": "={{ $json.fields['Intern Name'] }}",
+            "Department": "={{ $json.fields.Department }}",
+            "Task Count": "={{ $json.fields['Task Count'] }}",
+            "Performance Score": "={{ $json.fields['Task Count'] * 10 }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Intern Name",
+              "displayName": "Intern Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Department",
+              "displayName": "Department",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "AI Automation",
+                  "value": "AI Automation"
+                },
+                {
+                  "name": "No-code Automation",
+                  "value": "No-code Automation"
+                },
+                {
+                  "name": "AI Systems",
+                  "value": "AI Systems"
+                },
+                {
+                  "name": "Operations",
+                  "value": "Operations"
+                },
+                {
+                  "name": "Automation Testing",
+                  "value": "Automation Testing"
+                },
+                {
+                  "name": "No-Code Automation",
+                  "value": "No-Code Automation"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Task Count",
+              "displayName": "Task Count",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Performance Score",
+              "displayName": "Performance Score",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "3fcab16c-51b1-4a41-8b0a-9fc1b9fc85af",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Airtable Trigger": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d3772a40-c764-46dc-a87f-898e08b7c657",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "YbuWT8qDyMnOajnj",
+  "tags": []
+}

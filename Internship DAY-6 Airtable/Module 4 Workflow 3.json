@@ -1,0 +1,94 @@
+{
+  "name": "Module 4 Workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "https://airtable.com/appx326oeQJI79dIs/tblHFOfb6XBMpCbUi/viww2J1tuU3rmiflG?blocks=hide",
+          "mode": "url"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "https://airtable.com/appx326oeQJI79dIs/tblHFOfb6XBMpCbUi/viww2J1tuU3rmiflG?blocks=hide",
+          "mode": "url"
+        },
+        "triggerField": "Last Modified",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0a40c568-c88e-4f73-b0f9-20a92b8d2f5a",
+      "name": "Airtable Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tabindashoaib@gmail.com",
+        "subject": "=Project Status Updated — {{ $json.fields['Project Name'] }}",
+        "message": "=Hello Team,\n\nA project status has been updated.\n\n📌 Project: {{ $json.fields['Project Name'] }}\n👤 Assigned To: {{ $json.fields['Assigned To'] }}\n📅 Deadline: {{ $json.fields.Deadline }}\n📊 New Status: {{ $json.fields.Status }}\n\nPlease review the project and take any required action.\n\nRegards,\nMATalogics AI Operations",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "fbbdd056-c49f-4567-8392-d4e69b804523",
+      "name": "Send a message",
+      "webhookId": "3c2918a8-0934-4b3f-9f0f-8654ea4806bb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iDwyUktyXgPwHvk9",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Airtable Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "50a07472-18af-4b29-aa09-52b92fe235d0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "iRQgvrymWwcldh71",
+  "tags": []
+}

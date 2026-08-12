@@ -1,0 +1,94 @@
+{
+  "name": "Module 3-Task 2-WF-3 Delete - N8n AIrTable Integration",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        64
+      ],
+      "id": "3e021250-045b-48f7-bc4a-d17a907a0bf7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "deleteRecord",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "id": "recppzVtnZzSv3lFZ"
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        64
+      ],
+      "id": "0246c1fb-d143-4372-ab18-b5cfd21f36a8",
+      "name": "Delete a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "rywZQE7SoEdPd9WI",
+          "name": "Airtable Personal Access Token account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Module 3: Airtable + n8n Integration\n\nSubtasks \n1. Connect Airtable to n8n. \n2. Perform:  \n                Delete a new Record in 'Clients' table\n                Client ID: CL007 has been created (CREATE a new record) with the status 'onboarding'.\n",
+        "height": 384,
+        "width": 1104,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -336,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "eeb68bad-c961-4bcb-bbf5-98fb9d1f83dc",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Delete a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "3afe4780-8b64-4845-9430-51a94c9e379e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "VSX8f4Wr8m8ZG3xv",
+  "tags": []
+}

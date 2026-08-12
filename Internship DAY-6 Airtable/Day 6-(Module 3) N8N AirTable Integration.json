@@ -1,0 +1,431 @@
+{
+  "name": "Day 6-AirTable Integration",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        -208
+      ],
+      "id": "4175aa9b-5b38-4415-93d9-fc45da85c06d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Client ID": "CL006",
+            "Name": "Zara Sheikh",
+            "Company": "NovaTech",
+            "Email": "zara@novatech.com",
+            "Status": "Onboarding"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Client ID",
+              "displayName": "Client ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Active",
+                  "value": "Active"
+                },
+                {
+                  "name": "Inactive",
+                  "value": "Inactive"
+                },
+                {
+                  "name": "Onboarding",
+                  "value": "Onboarding"
+                },
+                {
+                  "name": "Completed",
+                  "value": "Completed"
+                },
+                {
+                  "name": "Incomplete",
+                  "value": "Incomplete"
+                },
+                {
+                  "name": "In-progress",
+                  "value": "In-progress"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        -48,
+        -256
+      ],
+      "id": "edbf3a50-1387-4970-bbe5-e0024ab7af44",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Module 3: Airtable + n8n Integration\n\nSubtasks \n1. Connect Airtable to n8n. \n2. Perform:  \n                Create a new Record in 'Clients' table\n                Update a new Record in 'Clients' table\n                Delete a new Record in 'Clients' table\n                Search a new Record in 'Clients' table",
+        "height": 288,
+        "width": 1456,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -592,
+        -304
+      ],
+      "typeVersion": 1,
+      "id": "df1245e1-8648-4f3f-95de-a9ff4d0aa3c5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Client ID": "CL006",
+            "Status": "Active"
+          },
+          "matchingColumns": [
+            "Client ID"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Client ID",
+              "displayName": "Client ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Active",
+                  "value": "Active"
+                },
+                {
+                  "name": "Inactive",
+                  "value": "Inactive"
+                },
+                {
+                  "name": "Onboarding",
+                  "value": "Onboarding"
+                },
+                {
+                  "name": "Completed",
+                  "value": "Completed"
+                },
+                {
+                  "name": "Incomplete",
+                  "value": "Incomplete"
+                },
+                {
+                  "name": "In-progress",
+                  "value": "In-progress"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        -192
+      ],
+      "id": "cde8f9ed-e065-41af-aada-0c0d9c52095d",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteRecord",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "id": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        -256
+      ],
+      "id": "2c2209c8-b5e0-4770-8d2f-689edf9782cb",
+      "name": "Delete a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "filterByFormula": "={Client ID} = \"CL006\"",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        -256
+      ],
+      "id": "9d6f134c-0691-49c4-93cb-f1a31d945e97",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        [
+          {
+            "node": "Delete a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a record": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c9e16510-1d38-4bbf-b8b9-89d56c274787",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "CNasR2tsKkfSso0g",
+  "tags": []
+}

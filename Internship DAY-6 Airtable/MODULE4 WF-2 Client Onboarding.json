@@ -1,0 +1,148 @@
+{
+  "name": "MODULE4 WF-2 Client Onboarding",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "id"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "id"
+        },
+        "triggerField": "Created Time",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "de8bb068-f2f1-49c2-9a49-b2c1e77f95d8",
+      "name": "Airtable Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#client-updates",
+          "mode": "name"
+        },
+        "text": "=🎉 New Client Onboarded\n\nClient ID: {{ $json['Generated CLient ID'] }}\nName: {{ $('Airtable Trigger').item.json.fields.Name }}\nCompany: {{ $('Airtable Trigger').item.json.fields.Company }}\nEmail: {{ $('Airtable Trigger').item.json.fields.Email }}\nStatus: {{ $('Airtable Trigger').item.json.fields.Status }}\n\nAutomated via n8n.",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "676cbf96-b539-4b8d-90aa-c701d055fbc3",
+      "name": "Send a message",
+      "webhookId": "2b44b7af-ca6b-457d-94ca-80d087a694ec",
+      "credentials": {
+        "slackApi": {
+          "id": "MvdcqKqkxPSkrF3B",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Module 4 Workflow 2\nWorkflow 2: Client Onboarding \n\nAirtable Record Created → Generate Client ID → Notify Team",
+        "height": 400,
+        "width": 1136,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -272,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "f91d9559-521c-41e5-ad92-6685f7babf09",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "651682c0-2274-429b-bca0-b7578eb89a4a",
+              "name": "Generated CLient ID",
+              "value": "={{ 'CL' + String(parseInt($json.fields[\"Client ID\"].replace(\"CL\",\"\"))).padStart(3,\"0\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "2cbfb732-57ca-4df8-8c39-712f850c6099",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Airtable Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "baf1a69c-b18b-4fa4-8357-a82deed2765c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "eiBgx7zZW31lLS07",
+  "tags": []
+}

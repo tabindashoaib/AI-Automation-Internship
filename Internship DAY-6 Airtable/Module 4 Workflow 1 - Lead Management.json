@@ -1,0 +1,117 @@
+{
+  "name": "Module 4 Workflow 1 - Lead Management",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "https://airtable.com/appx326oeQJI79dIs/tblIrvWF7AzNKawd5/viwkJYld3N1JI4Ska",
+          "mode": "url"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "https://airtable.com/appx326oeQJI79dIs/tblIrvWF7AzNKawd5/viwkJYld3N1JI4Ska",
+          "mode": "url"
+        },
+        "triggerField": "Created At",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "81ac0451-7e77-487c-a23e-7ee4260340e1",
+      "name": "Airtable Trigger",
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "# n8n-alerts",
+          "mode": "name"
+        },
+        "text": "=🚨 New Lead Received\n\nLead Name: {{ $json.fields[\"Lead Name\"] }}\nSource: {{ $json.fields[\"Source\"] }}\nPhone: {{ $json.fields[\"Phone Number\"] }}\nInterested Service: {{ $json.fields[\"Interested Service\"] }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9cf7251c-0728-4178-ae2c-3ffbe6c2667d",
+      "name": "Send a message",
+      "webhookId": "7d511d31-ecd0-45f0-9f1f-dcd0ee71fbf5",
+      "credentials": {
+        "slackApi": {
+          "id": "IYA8xcFqtdd2nUWm",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "MODULE 4: WORKFLOW 1\nLEAD MANAGEMENT\n\nNew Lead in Airtable → n8n → Send Slack Notification ",
+        "height": 384,
+        "width": 1120,
+        "color": "#8CD4A5"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        -112
+      ],
+      "typeVersion": 1,
+      "id": "c51437f1-eeca-4a0a-a77f-bec3025fdb86",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Airtable Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "9a890dbe-6daa-4d97-9d8a-6dbc96ea6ab2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "ubljag2iWSdPpi5K",
+  "tags": []
+}

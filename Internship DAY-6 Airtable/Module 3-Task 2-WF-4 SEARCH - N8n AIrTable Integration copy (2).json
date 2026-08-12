@@ -1,0 +1,100 @@
+{
+  "name": "Module 3-Task 2-WF-4 SEARCH - N8n AIrTable Integration copy",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -16
+      ],
+      "id": "d154dd04-47a1-4302-bdae-49befa15d792",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "Module 3: Airtable + n8n Integration\n\nSubtasks \n1. Connect Airtable to n8n. \n2. Perform:  \n                SEARCH a new Record in 'Clients' table\n",
+        "height": 384,
+        "width": 1104,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -336,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "0604d7bc-ef28-4c39-b2a8-49e271384cc1",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "filterByFormula": "={Client ID} = \"CL002\"\n",
+        "returnAll": false,
+        "limit": 1,
+        "options": {},
+        "sort": {
+          "property": []
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        -16
+      ],
+      "id": "d028963a-7248-42c7-8085-b6e9d1332188",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "rywZQE7SoEdPd9WI",
+          "name": "Airtable Personal Access Token account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "aa2b459a-53c3-4e2f-b887-b6ff93a0c671",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "coPkaLIk8jKnEn1f",
+  "tags": []
+}

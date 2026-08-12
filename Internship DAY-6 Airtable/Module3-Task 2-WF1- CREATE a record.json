@@ -1,0 +1,195 @@
+{
+  "name": "Module3-Task 2-WF1- CREATE-N8N AIrTable Integration copy",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        304,
+        -208
+      ],
+      "id": "1a74eea3-c0bc-448f-aa7c-1128a893c810",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appx326oeQJI79dIs",
+          "mode": "list",
+          "cachedResultName": "MATalogics AI Operations Base",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblPcS5SV7ncGoT58",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://airtable.com/appx326oeQJI79dIs/tblPcS5SV7ncGoT58"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Client ID": "CL007",
+            "Name": "Salman Shah",
+            "Company": "NextEra",
+            "Email": "Shah_Salman@nextera.com",
+            "Status": "Onboarding"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Client ID",
+              "displayName": "Client ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Active",
+                  "value": "Active"
+                },
+                {
+                  "name": "Inactive",
+                  "value": "Inactive"
+                },
+                {
+                  "name": "Onboarding",
+                  "value": "Onboarding"
+                },
+                {
+                  "name": "Completed",
+                  "value": "Completed"
+                },
+                {
+                  "name": "Incomplete",
+                  "value": "Incomplete"
+                },
+                {
+                  "name": "In-progress",
+                  "value": "In-progress"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        -208
+      ],
+      "id": "2a47049e-6851-4f65-a1ea-8d92246887d6",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "eLbzfhkRrGCY21VL",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Module 3: Airtable + n8n Integration\n\nSubtasks \n1. Connect Airtable to n8n. \n2. Perform:  \n                Create a new Record in 'Clients' table\n                Client ID: CL007 has been created (CREATE a new record) with the status 'onboarding'.\n",
+        "height": 288,
+        "width": 1456,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -592,
+        -304
+      ],
+      "typeVersion": 1,
+      "id": "dc950f4c-4691-437c-a80f-b87db57c4557",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "d7a698a0-eca2-4215-b6d9-c0df1dee46c5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fa5d5d1db5e6e32ba1d6b50f38aadd583934f21fedc38a7bffa15c8c9ec6083e"
+  },
+  "nodeGroups": [],
+  "id": "fbZEQuQ9KuejejNf",
+  "tags": []
+}
