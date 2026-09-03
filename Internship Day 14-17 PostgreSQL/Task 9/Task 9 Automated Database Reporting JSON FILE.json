@@ -1,0 +1,249 @@
+{
+  "name": "Task 9 Automated Database Reporting",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1072,
+        -48
+      ],
+      "id": "8093ec5e-47ca-410a-bd02-bd379d212526",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM public.task8_leads;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        -848,
+        -48
+      ],
+      "id": "0bdfe2a5-8d1a-4718-aaac-652d45e12583",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "ILZtf2jmjhNjyOFF",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = $input.all().map(item => item.json);\n\n// Total Leads\nconst totalLeads = leads.length;\n\n// New Leads\nconst now = new Date();\nconst last24Hours = new Date(now.getTime() - 24 * 60 * 60 * 1000);\n\nconst newLeads = leads.filter(lead => {\n  if (!lead.created_at) return false;\n\n  const createdAt = new Date(lead.created_at);\n  return createdAt >= last24Hours && createdAt <= now;\n}).length;\n\n// Qualified Leads\nconst qualifiedLeads = leads.filter(\n  lead => lead.lead_status === 'Qualified'\n).length;\n\n// Converted Leads\nconst convertedLeads = leads.filter(\n  lead => lead.lead_status === 'Converted'\n).length;\n\n// Average Lead Score\nconst averageLeadScore = leads.length\n  ? Number(\n      (\n        leads.reduce(\n          (sum, lead) => sum + Number(lead.lead_score || 0),\n          0\n        ) / leads.length\n      ).toFixed(2)\n    )\n  : 0;\n\n// Count leads by source\nconst sourceCounts = {};\n\nfor (const lead of leads) {\n  const source = lead.source || 'Unknown';\n  sourceCounts[source] = (sourceCounts[source] || 0) + 1;\n}\n\n// Top Lead Source\nconst sortedSources = Object.entries(sourceCounts)\n  .sort((a, b) => b[1] - a[1]);\n\nconst topLeadSource = sortedSources.length\n  ? sortedSources[0][0]\n  : 'N/A';\n\nconst topLeadSourceCount = sortedSources.length\n  ? sortedSources[0][1]\n  : 0;\n\n// Top 5 Leads\nconst top5Leads = [...leads]\n  .sort(\n    (a, b) =>\n      Number(b.lead_score || 0) -\n      Number(a.lead_score || 0)\n  )\n  .slice(0, 5)\n  .map(lead => ({\n    name: lead.name,\n    company: lead.company,\n    lead_score: Number(lead.lead_score || 0),\n    lead_status: lead.lead_status,\n    source: lead.source\n  }));\n\n// Conversion Rate\nconst conversionRate = totalLeads > 0\n  ? Number(((convertedLeads / totalLeads) * 100).toFixed(2))\n  : 0;\n\nreturn [\n  {\n    json: {\n      totalLeads,\n      newLeads,\n      qualifiedLeads,\n      convertedLeads,\n      averageLeadScore,\n      topLeadSource,\n      topLeadSourceCount,\n      top5Leads,\n      conversionRate\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -48
+      ],
+      "id": "feaa66ae-ea85-4240-8662-cfe50a6abb02",
+      "name": "Calculate Metrics"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "task8_leads",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        -48
+      ],
+      "id": "79c6c16f-e0d1-4313-89c8-303115f39eef",
+      "name": "Retrieve Leads from Supabase",
+      "executeOnce": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "tWspRQYtgjDcTGV7",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Create the daily business report from these calculated metrics:\n\n{{ JSON.stringify($json) }}",
+        "options": {
+          "systemMessage": "You are a business reporting assistant.\n\nYour task is to analyze the calculated lead metrics provided by the workflow and produce an accurate daily business report.\n\nUse ONLY the data provided in the input. Do not invent, estimate, modify, or recalculate any values.\n\nThe report must include:\n\n1. Total Leads\n2. New Leads\n3. Qualified Leads\n4. Converted Leads\n5. Average Lead Score\n6. Top Lead Source\n7. Top 5 Leads\n8. Conversion Rate\n\nAfter presenting the metrics, provide a concise business summary explaining the key insights from the data.\n\nKeep the report professional, clear, and suitable for a manager.\n\nIf Converted Leads is 0, report the conversion rate exactly as provided and do not imply that conversions occurred.\n\nPreserve the names, companies, lead scores, statuses, and sources exactly as supplied.\n\nDo not create information that is not present in the input."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -176,
+        -48
+      ],
+      "id": "41945226-7754-4aec-8358-1f1d80d9f19e",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -176,
+        224
+      ],
+      "id": "cfaf5877-e835-4131-8196-0c1ab8318084",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "zQGSXmmG02fDD4WE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiOutput = $json.output || '';\n\nconst report = `DAILY LEAD REPORT\n====================\n\n${aiOutput}\n\n====================\nReport generated automatically by n8n.\n`;\n\nreturn [\n  {\n    json: {\n      report\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        192,
+        -48
+      ],
+      "id": "8b96c219-0001-4ee4-8be7-e1a024c22da7",
+      "name": "Generate Report"
+    },
+    {
+      "parameters": {
+        "sendTo": "tabindashoaib@gmail.com",
+        "subject": "Daily Lead Report",
+        "message": "={{ $json.report.replace(/\\n/g, '<br>') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        -48
+      ],
+      "id": "c7f59d1d-1220-4121-8267-8a2b9abf0509",
+      "name": "Send a message",
+      "webhookId": "63b2abc5-8fa8-466c-9507-ef426a226e0c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "lrE0FTbB94rpiLwE",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Retrieve Leads from Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve Leads from Supabase": {
+      "main": [
+        [
+          {
+            "node": "Calculate Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Metrics": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Generate Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Report": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a70324e9-b465-498d-bdf3-fff957ffca2f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "366244d705286eefc15c46f5d640811110d4cd647823dce29c26e9fecb71ae7e"
+  },
+  "nodeGroups": [],
+  "id": "wZ5mRUBWLJAAmy3M",
+  "tags": []
+}
